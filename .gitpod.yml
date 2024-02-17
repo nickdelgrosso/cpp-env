@@ -4,17 +4,14 @@ tasks:
       echo "Starting process"
     init: |
       curl -Ls https://micro.mamba.pm/api/micromamba/linux-64/latest | tar -xvj bin/micromamba
-      bin/micromamba env create -f environment.yml -y
-      bin/micromamba activate cpp
-      bin/micromamba shell init
-    command: |
-      bin/micromamba shell init
-      exec bash
-  - name: Set up Jupyter Lab
-    command: |
+      eval "$(bin/micromamba shell hook --shell bash)"
+
+      micromamba env create -f environment.yml -y
+
+      micromamba ativate cpp
       jupyter server --generate-config
-      echo "c.ServerApp.allow_remote_access = True" >> ~/.jupyter/jupyter_server_config.py
       echo "c = get_config()" >> ~/.jupyter/jupyter_server_config.py
+      echo "c.ServerApp.allow_remote_access = True" >> ~/.jupyter/jupyter_server_config.py
       echo "c.LabApp.collaborative = True" >> ~/.jupyter/jupyter_server_config.py
       echo "c.ServerApp.allow_origin = '*'" >> ~/.jupyter/jupyter_server_config.py
       echo "c.ServerApp.token = ''" >> ~/.jupyter/jupyter_server_config.py
