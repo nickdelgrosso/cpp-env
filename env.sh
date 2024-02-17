@@ -1,9 +1,7 @@
 curl -Ls https://micro.mamba.pm/api/micromamba/linux-64/latest | tar -xvj bin/micromamba
 bin/micromamba shell init
 
-micromamba create --name cpp1
-micromamba activate cpp1
-micromamba install -c conda-forge cmake xeus-zmq cling xeus-cling nlohmann_json cppzmq xtl pugixml doctest cpp-argparse jupyterlab
+micromamba env create -f environment.yml
 
 
 # Enable remote access to jupyter lab

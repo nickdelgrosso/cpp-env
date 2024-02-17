@@ -1,0 +1,32 @@
+tasks:
+  - name: Install Minimamba
+    before: |
+      echo "Starting process"
+    init: |
+      curl -Ls https://micro.mamba.pm/api/micromamba/linux-64/latest | tar -xvj bin/micromamba
+      bin/micromamba shell init > /dev/null
+    command: |
+      exec bash
+  - name: Set up C++ Micromamba environment
+    init: |
+      micromamba env create -f environment.yml -y
+      micromamba activate cpp
+  
+
+    
+github:
+  prebuilds:
+    branches: true
+
+ports:
+  - name: Jupyter Lab
+    description: The Default Jupyter Server Port
+    port: 8888-8891
+    visibility: public
+    onOpen: open-browser
+
+vscode:
+  extensions:
+    - ms-python.python
+    - mechatroner.rainbow-csv
+    - akosyakov.gitpod-monitor
