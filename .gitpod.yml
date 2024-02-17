@@ -6,9 +6,10 @@ tasks:
       curl -Ls https://micro.mamba.pm/api/micromamba/linux-64/latest | tar -xvj bin/micromamba
       bin/micromamba shell init > /dev/null
     command: |
+      bin/micromamba shell init > /dev/null
       exec bash
   - name: Set up C++ Micromamba environment
-    init: |
+    command: |
       micromamba env create -f environment.yml -y
       micromamba activate cpp
   
